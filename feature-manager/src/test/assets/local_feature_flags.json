@@ -1,0 +1,32 @@
+{
+  "developerFlags": [
+    {
+      "boolean_feature": {
+        "isEnabled": "false"
+      }
+    },
+    {
+      "complex_feature": {
+        "booleanValue": "false",
+        "intValue": 10,
+        "stringValue": "QIWI",
+        "listIntValue": [ 2019, 2020 ],
+        "objValue": {
+          "intValue": 40,
+          "stringValue": "FeatureManager"
+        }
+      }
+    },
+    {
+      "string_feature": {
+        "stringValueOne": "Android",
+        "stringValueTwo": "Oreo"
+      }
+    },
+    {
+      "double_feature": {
+        "doubleValue": 4.26
+      }
+    }
+  ]
+}

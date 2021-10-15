@@ -1,0 +1,10 @@
+{
+  "booleanValue": "true",
+  "intValue": 100,
+  "stringValue": "QIWI",
+  "listIntValue": [ 2019, 2020, 2021 ],
+  "objValue": {
+    "intValue": 50,
+    "stringValue": "FeatureToggle"
+  }
+}

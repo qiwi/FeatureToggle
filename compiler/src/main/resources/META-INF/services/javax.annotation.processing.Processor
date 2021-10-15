@@ -1,0 +1,2 @@
+com.qiwi.featuretoggle.compiler.FeatureFlagRegistryProcessor
+com.qiwi.featuretoggle.compiler.FeatureFactoryRegistryProcessor

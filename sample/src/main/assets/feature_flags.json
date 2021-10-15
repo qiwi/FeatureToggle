@@ -1,0 +1,14 @@
+{
+  "developerFlags": [
+    {
+      "android_info": {
+        "versionName": "11",
+        "apiLevel": 30
+      },
+      "modal_dialog": {
+        "isEnabled": false
+      }
+    }
+  ]
+}
+

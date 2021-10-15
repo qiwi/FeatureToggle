@@ -1,0 +1,26 @@
+[
+  {
+    "feature": "boolean_feature",
+    "isEnabled": "true"
+  },
+  {
+    "feature": "complex_feature",
+    "booleanValue": "true",
+    "intValue": 100,
+    "stringValue": "QIWI",
+    "listIntValue": [ 2019, 2020, 2021 ],
+    "objValue": {
+      "intValue": 50,
+      "stringValue": "FeatureToggle"
+    }
+  },
+  {
+    "feature": "string_feature",
+    "stringValueOne": "Android",
+    "stringValueTwo": "Pie"
+  },
+  {
+    "feature": "double_feature",
+    "doubleValue": 12.0
+  }
+]

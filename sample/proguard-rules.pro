@@ -1,0 +1,1 @@
+-keep class com.qiwi.featuretoggle.sample.AndroidFlag { *; }

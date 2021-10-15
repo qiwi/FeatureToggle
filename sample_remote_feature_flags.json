@@ -1,0 +1,11 @@
+[
+  {
+    "feature": "android_info",
+    "versionName": "12",
+    "apiLevel": 31
+  },
+  {
+    "feature": "modal_dialog",
+    "isEnabled": true
+  }
+]
