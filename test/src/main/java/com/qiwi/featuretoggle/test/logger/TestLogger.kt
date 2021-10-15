@@ -32,13 +32,6 @@ class TestLogger : Logger {
         details: Map<String, String>,
         throwable: Throwable?
     ) {
-        val messageBuilder = StringBuilder("$level/$tag: $message")
-        if (details.isNotEmpty()) {
-            messageBuilder.append("\n${details.entries.joinToString()}")
-        }
-        if (throwable != null) {
-            messageBuilder.append("\n${throwable.stackTraceToString()}")
-        }
-        println(messageBuilder.toString())
+        //do not print unnecessary logs in tests
     }
 }
