@@ -31,6 +31,9 @@ import com.qiwi.featuretoggle.registry.FeatureFlagRegistry
 import com.qiwi.featuretoggle.util.Logger
 import java.io.File
 
+/**
+ * A [CachedFlagsStorage] that stores cached feature flags in Json file inside [Context.getFilesDir] directory.
+ */
 internal class InternalCachedFlagsStorage(
     file: File
 ) : CachedFlagsStorage {

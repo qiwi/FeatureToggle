@@ -22,7 +22,7 @@
 package com.qiwi.featuretoggle.model
 
 /**
- * Represents type of source from which feature flags was loaded.
+ * Represents type of source from which feature flags were loaded.
  */
 enum class FeatureFlagsSourceType {
     LOCAL,

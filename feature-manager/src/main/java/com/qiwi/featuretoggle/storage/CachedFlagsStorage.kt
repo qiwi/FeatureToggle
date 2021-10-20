@@ -34,7 +34,7 @@ import com.qiwi.featuretoggle.util.Logger
  * It is useful to keep flags from data sources with type [FeatureFlagsSourceType.REMOTE] in cache,
  * because this flags are more actual then flags from data sources with type [FeatureFlagsSourceType.LOCAL].
  *
- * Feature flags that stored in this cache will be merged with other flags next time when [FeatureManager].
+ * Feature flags that stored in this cache will be merged with other flags next time when [FeatureManager]
  * will fetch flags.
  */
 interface CachedFlagsStorage {
