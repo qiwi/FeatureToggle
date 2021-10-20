@@ -27,6 +27,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: unit-test-results
+          retention-days: 1
           path: |
             **/build/test-results/*
             **/build/reports/*
