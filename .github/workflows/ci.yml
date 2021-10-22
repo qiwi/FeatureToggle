@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - "main"
-    tags:
-      - '*'
   pull_request:
 
 jobs:
@@ -34,27 +32,3 @@ jobs:
           path: |
             **/build/test-results/*
             **/build/reports/*
-
-  publish:
-    name: Publish
-    if: github.repository == 'qiwi/FeatureToggle' && github.event_name == 'push' && contains(github.ref, 'refs/tags/')
-    needs: unit-tests
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v2
-        with:
-          distribution: 'zulu'
-          java-version: 11
-
-      - name: Publish
-        run: ./gradlew publish --no-daemon --no-parallel
-        env:
-          ORG_GRADLE_PROJECT_MAVEN_RELEASES_URL: https://oss.sonatype.org/service/local/staging/deploy/maven2/
-          ORG_GRADLE_PROJECT_MAVEN_SNAPSHOTS_URL: https://oss.sonatype.org/content/repositories/snapshots/
-          ORG_GRADLE_PROJECT_MAVEN_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
-          ORG_GRADLE_PROJECT_MAVEN_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
-          ORG_GRADLE_PROJECT_SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          ORG_GRADLE_PROJECT_SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
