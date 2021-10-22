@@ -94,7 +94,7 @@ class FirebaseDataSource(
         const val KEY = "FirebaseDataSource"
 
         /**
-         * Default priority for feature flags from [AgConnectDataSource].
+         * Default priority for feature flags from [FirebaseDataSource].
          */
         const val PRIORITY = 4
 
