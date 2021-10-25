@@ -7,11 +7,11 @@ Feature toggle library for Android.
 `FeatureToggle` library allows to configure features of Android application in runtime using feature flags. 
 Common usecases:
 - [Trunk-Based Developement](https://trunkbaseddevelopment.com) when developers can release application with not production ready code in main branch and hide this code behind a feature flag.
-- Safe release with new implementation of critical part of application. If critial problem found in new implementation, developers can switch to old implementation using feature flag.
+- Safe release with new implementation of critical part of application. If critical problem found in new implementation, developers can switch to old implementation using feature flag.
 - A/B testing when feature flags used to switch between multiple feature implementations.
 
 When using `FeatureToggle` library each dynamic feature in Android application must been represent as separate class or interface with multiple implementations. 
-Each dynamic feature have `Feature Flag` with unique key and `FeatureFactory`. 
+Each dynamic feature has `Feature Flag` with unique key and `FeatureFactory`.
 
 `Feature Flag` is Kotlin class that contains one or more fields that describe feature config.
 
@@ -64,7 +64,7 @@ class SampleFeatureFeatureFactory : FeatureFactory<SampleFeature, SampleFeatureF
     }
 }
 ```
-4. Create instance of `FeatureManager` using `FeatureManager.Builder`. Provide converter, necessary data sources and generated registries. Also it is recommended to fetch feature flags immidiately after creation instance of `FeatureManager`:
+4. Create instance of `FeatureManager` using `FeatureManager.Builder`. Provide converter, necessary data sources and generated registries. Also it is recommended to fetch feature flags immediately after creation instance of `FeatureManager`:
 
 ```kotlin
 val featureManager = FeatureManager.Builder(context)
@@ -269,7 +269,7 @@ class CustomDataSource : FeatureFlagDataSource {
 
 ## Testing
 
-If you need to use `FeatureManager` in unit tests, use `FakeFeatureManager`. It do not load flags from data sources. Instead it uses mocked feature flags.
+If you need to use `FeatureManager` in unit tests, use `FakeFeatureManager`. It does not load flags from data sources. Instead, it uses mocked feature flags.
 Usage:
 
 ```kotlin
@@ -285,7 +285,7 @@ fakeFeatureManager.overrideFlag(...)
 
 ## R8/Proguard
 
-`FeatureToggle` modules have bundled proguard rules for its classes. However for each feature flag class you need to add proguard rule:
+`FeatureToggle` modules have bundled proguard rules for its classes. However, for each feature flag class you need to add proguard rule:
 
 ```kotlin
 -keep class com.example.SampleFeatureFlag { *; }
