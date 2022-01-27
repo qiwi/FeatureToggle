@@ -1,37 +1,38 @@
 # FeatureToggle
 
-Feature toggle library for Android.
+The Feature Toggle library for Android.
 
 ## Overview
 
-`FeatureToggle` library allows to configure features of Android application in runtime using feature flags. 
-Common usecases:
-- [Trunk-Based Developement](https://trunkbaseddevelopment.com) when developers can release application with not production ready code in main branch and hide this code behind a feature flag.
-- Safe release with new implementation of critical part of application. If critical problem found in new implementation, developers can switch to old implementation using feature flag.
-- A/B testing when feature flags used to switch between multiple feature implementations.
+The `FeatureToggle` library allows you to configure features of an Android application at runtime using feature flags. 
+Here are common usecases:
+- [Trunk-Based Developement](https://trunkbaseddevelopment.com).
+- Safe release with a new implementation of the app’s critical part. If the new implementation causes a critical problem, developers can switch back to the old implementation using a feature flag.
+- A/B testing, when feature flags are used to switch between multiple feature implementations.
 
-When using `FeatureToggle` library each dynamic feature in Android application must been represent as separate class or interface with multiple implementations. 
-Each dynamic feature has `Feature Flag` with unique key and `FeatureFactory`.
+When you use `FeatureToggle` library, each dynamic feature in an Android application must be represented as a separate class or an interface with multiple implementations. 
+Each dynamic feature has a `Feature Flag` with unique key and a `FeatureFactory`.
 
-`Feature Flag` is Kotlin class that contains one or more fields that describe feature config.
+`Feature Flag` is Kotlin class that contains one or more fields that describe feature configuration.
 
-`Feature Flag`s can be loaded from multiple `FeatureFlagDataSource`s. `FeatureFlagDataSource` have priority, that used to decide from which `FeatureFlagDataSource` apply specific `Feature Flag`.
-`Feature Flag`s stored in Json and in runtime represented as Koltin objects. 
+`Feature Flag`s can be loaded from multiple `FeatureFlagDataSource`s. `FeatureFlagDataSource` has a priority value, which helps to decide which `FeatureFlagDataSource` should be used to apply a certain `Feature Flag`.
 
-`FeatureFactory` is responsible to create feature object using provided `Feature Flag` object to make a decision how to create feature object.
+`Feature Flag`s are stored in JSON format, and at runtime are represented as Koltin objects. 
 
-`FeatureToggle` library automatically generates registries of current application feature flags and factories using annotation processors.
+A `FeatureFactory` is responsible for creating feature objects, using the provided `Feature Flag` objects to decide how to create feature objects.
+
+The `FeatureToggle` library automatically generates registries of current application feature flags and factories using annotation processors.
 
 ## Quick Start
 
-1. Add feature manager and compiler:
+1. Add a feature manager and compiler:
 
 ```kotlin
 implementation("com.qiwi.featuretoggle:featuretoggle-feature-manager:0.1.0")
 kapt("com.qiwi.featuretoggle:featuretoggle-compiler:0.1.0")
 ```
 
-2. Add converter that will be used to convert feature flags from Json into Kotlin objects. Two converters are available:
+2. Add a converter that will be used to convert feature flags from Json into Kotlin objects. Two converters are available:
 [Jackson](https://github.com/FasterXML/jackson-module-kotlin) and [Gson](https://github.com/google/gson):
 
 ```kotlin
@@ -40,7 +41,7 @@ implementation("com.qiwi.featuretoggle:featuretoggle-converter-jackson:0.1.0")
 implementation("com.qiwi.featuretoggle:featuretoggle-converter-gson:0.1.0")
 ```
 
-3. For each feature add feature flag with unique key and factory:
+3. Add a feature flag with an unique key and factory for every feature:
 
 ```kotlin
 class SampleFeature {
@@ -64,7 +65,7 @@ class SampleFeatureFeatureFactory : FeatureFactory<SampleFeature, SampleFeatureF
     }
 }
 ```
-4. Create instance of `FeatureManager` using `FeatureManager.Builder`. Provide converter, necessary data sources and generated registries. Also it is recommended to fetch feature flags immediately after creation instance of `FeatureManager`:
+4. Create an instance of `FeatureManager` using `FeatureManager.Builder`. Provide a converter, necessary data sources and generated registries. It is recommended to fetch feature flags immediately after creating an instance of `FeatureManager`:
 
 ```kotlin
 val featureManager = FeatureManager.Builder(context)
@@ -78,7 +79,7 @@ val featureManager = FeatureManager.Builder(context)
 featureManager.fetchFlags()
 ```
 
-5. Provide instance of `FeatureManager` using your favourite DI framework or use `FeatureToggle` singleton:
+5. Provide an instance of `FeatureManager` using your favourite DI framework, or you can use the `FeatureToggle` singleton:
 
 ```kotlin
 implementation("com.qiwi.featuretoggle:featuretoggle-feature-manager-singleton:0.1.0")
@@ -89,13 +90,13 @@ FeatureToggle.setFeatureManager(...)
 FeatureToggle.featureManager().getFeature(...)
 ```
 
-6. Get feature from `FeatureManager`:
+6. Get a feature from `FeatureManager`:
 
 ```kotlin
 val feature = featureManager.getFeature<SampleFeature>()
 ```
 
-It is recommended to wait with timeout for feature flags loading for example on splash screen:
+It is recommended to wait for the feature flags to get loaded, for example on a splash screen:
 ```kotlin
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -117,24 +118,24 @@ class SplashScreenActivity : AppCompatActivity() {
 ```
 ## Assets DataSource
 
-`AssetsDataSource` loads feature flags from Json file in `assets` folder. It is used to include default feature flag values into apk or app bundle. Default `AssetsDataSource` priority is `1`.
+`AssetsDataSource` loads feature flags from a JSON file from `assets` folder. It is used to include default feature flag values into apk or app bundle. Default `AssetsDataSource` priority value is `1`.
 
 ## Cache
 
-Feature flags that loaded from remote data sources will be cached and used on next fetch. You can set priority of cached feature flags in `FeatureManager.Builder`:
+Feature flags when loaded from remote data sources are cached and used on the next fetch. You can also set a priority of cached feature flags in a `FeatureManager.Builder`:
 ```kotlin
 FeatureManager.Builder(context)
     ...
     .cachedFlagsPriority(2)
 ```
-Default cached flags priority is `2`.
+Default cached flags priority value is `2`.
 
 ## Remote Config DataSource
 
 `FeatureToggle` supports [Firebase Remote Config](https://firebase.google.com/docs/remote-config)
 and [AppGallery Connect Remote Configuration](https://developer.huawei.com/consumer/en/agconnect/remote-configuration/).
 
-For each feature flag add remote config value with its feature flag key. Remote config value must be stored as Json string. Sample:
+Add a remote config value with its feature flag key for every feature. Remote config value must be stored as a Json string. Sample:
 
 ```json
 {
@@ -143,12 +144,12 @@ For each feature flag add remote config value with its feature flag key. Remote 
 }
 ```
 
-Default remote config data sources priority is `4`.
+Default remote config data sources priority value is `4`.
 
-### Usage with `FirebaseDataSource`:
+### `FirebaseDataSource`:
 
-1. If you haven't already, [add Firebase to your Android project](https://firebase.google.com/docs/android/setup).
-2. If you need to use Google Analytics with Remote Config, add analytics dependency:
+1. [Add Firebase to your Android project](https://firebase.google.com/docs/android/setup).
+2. If you need to use Google Analytics with Remote Config, add the analytics dependency:
 
 ```kotlin
 implementation("com.google.firebase:firebase-analytics:${version}")
@@ -164,16 +165,16 @@ FeatureManager.Builder(context)
     ...
     .addDataSource(FirebaseDataSource())
 ```
-4. Add feature flags in **Engage > Remote Config** section in the [Firebase console](https://console.firebase.google.com). Sample:
+4. Add feature flags into the **Engage > Remote Config** section in the [Firebase console](https://console.firebase.google.com). Sample:
 
 <img src="https://user-images.githubusercontent.com/27818051/137912355-0ef1634d-75d5-4e57-88e9-cdaeeca8d753.png" width="400" height="300">
 
-For more details about Firebase Remote Config see [official docs](https://firebase.google.com/docs/remote-config).
+For more details about Firebase Remote Config, look at the [official docs](https://firebase.google.com/docs/remote-config).
 
-### Usage with `AgConnectDataSource`:
+### `AgConnectDataSource`:
 
-1. If you haven't already, [integrate the AppGallery Connect SDK](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-get-started-android-0000001058210705#section1552914317248).
-2. If you need to use HUAWEI Analytics with remote configuration, add analytics dependency:
+1. [Integrate the AppGallery Connect SDK](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-get-started-android-0000001058210705#section1552914317248).
+2. If you need to use HUAWEI Analytics with remote configuration, add the analytics dependency:
 
 ```kotlin
 implementation("com.huawei.hms:hianalytics:${version}")
@@ -188,17 +189,17 @@ FeatureManager.Builder(context)
     ...
     .addDataSource(AgConnectDataSource())
 ```
-4. Add feature flags in **Grow > Remote Configuration** section in [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html). Sample:
+4. Add feature flags into the **Grow > Remote Configuration** section in [AppGallery Connect](https://developer.huawei.com/consumer/en/service/josp/agc/index.html). Sample:
 
 <img src="https://user-images.githubusercontent.com/27818051/137916454-35613ba8-fe58-4198-8d71-ec52cb5db030.png" width="700" height="100">
 <img src="https://user-images.githubusercontent.com/27818051/137917223-e1daafa8-3d05-4f81-9f95-b0caa4a417c5.png" width="400" height="300">
 
-For more details about AppGallery Connect Remote Configuration see [official docs](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-remoteconfig-android-getstarted-0000001056347165).
+For more details about AppGallery Connect Remote Configuration, look at the [official docs](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-remoteconfig-android-getstarted-0000001056347165).
 
 ## Remote DataSource
 
-`FeatureToggle` also have `RemoteDataSource` that can load feature flags from Json REST API using [OkHttp](https://github.com/square/okhttp) library.
-Response Json must be in the following format:
+The `FeatureToggle` library also has `RemoteDataSource` that can download feature flags from JSON REST API using the [OkHttp](https://github.com/square/okhttp) library.
+JSON response must be in the following format:
 ```json
 [
     {
@@ -220,11 +221,11 @@ FeatureManager.Builder(context)
     .addDataSource(RemoteDataSource("url"))
 ```
 
-Default `RemoteDataSource` priority is `3`.
+Default `RemoteDataSource` priority value is `3`.
 
 ## Debug DataSource
 
-If there is need to update feature flags manually (for debug purposes), use `DebugDataSource`:
+If you need to update feature flags manually (for debug purposes), use `DebugDataSource`:
 
 ```kotlin
 implementation("com.qiwi.featuretoggle:featuretoggle-datasource-debug:0.1.0")
@@ -241,11 +242,11 @@ FeatureManager.Builder(context)
 debugDataSource.updateFeatureFlagsFromJsonString(...)
 ```
 
-Default `DebugDataSource` priority is `100`.
+Default `DebugDataSource` priority value is `100`.
 
 ## Custom DataSource
 
-It is possible to extend `FeatureToggle` with custom data source:
+You can extend the `FeatureToggle` library with custom data source:
 
 ```kotlin
 class CustomDataSource : FeatureFlagDataSource {
@@ -269,8 +270,8 @@ class CustomDataSource : FeatureFlagDataSource {
 
 ## Testing
 
-If you need to use `FeatureManager` in unit tests, use `FakeFeatureManager`. It does not load flags from data sources. Instead, it uses mocked feature flags.
-Usage:
+If you need to use `FeatureManager` in unit tests, use `FakeFeatureManager`. It doesn’t load flags from data sources – but uses mocked feature flags instead.
+Usage example:
 
 ```kotlin
 testImplementation("com.qiwi.featuretoggle:featuretoggle-feature-manager-test:0.1.0")
@@ -285,7 +286,7 @@ fakeFeatureManager.overrideFlag(...)
 
 ## R8/Proguard
 
-`FeatureToggle` modules have bundled proguard rules for its classes. However, for each feature flag class you need to add proguard rule:
+`FeatureToggle` library modules have bundled proguard rules for its classes. However, you need to add a proguard rule for every feature flag class:
 
 ```kotlin
 -keep class com.example.SampleFeatureFlag { *; }
