@@ -25,6 +25,6 @@ import com.qiwi.featuretoggle.annotation.FeatureFlag
 import com.qiwi.featuretoggle.flag.SimpleFeatureFlag
 
 @FeatureFlag(BOOLEAN_FEATURE_KEY)
-class BooleanFeatureFlag: SimpleFeatureFlag()
+open class BooleanFeatureFlag: SimpleFeatureFlag()
 
 const val BOOLEAN_FEATURE_KEY = "boolean_feature"
