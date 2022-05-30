@@ -28,17 +28,17 @@ The `FeatureToggle` library automatically generates registries of current applic
 1. Add a feature manager and compiler:
 
 ```kotlin
-implementation("com.qiwi.featuretoggle:featuretoggle-feature-manager:0.1.0")
-kapt("com.qiwi.featuretoggle:featuretoggle-compiler:0.1.0")
+implementation("com.qiwi.featuretoggle:featuretoggle-feature-manager:0.1.1")
+kapt("com.qiwi.featuretoggle:featuretoggle-compiler:0.1.1")
 ```
 
 2. Add a converter that will be used to convert feature flags from Json into Kotlin objects. Two converters are available:
 [Jackson](https://github.com/FasterXML/jackson-module-kotlin) and [Gson](https://github.com/google/gson):
 
 ```kotlin
-implementation("com.qiwi.featuretoggle:featuretoggle-converter-jackson:0.1.0")
+implementation("com.qiwi.featuretoggle:featuretoggle-converter-jackson:0.1.1")
 //or
-implementation("com.qiwi.featuretoggle:featuretoggle-converter-gson:0.1.0")
+implementation("com.qiwi.featuretoggle:featuretoggle-converter-gson:0.1.1")
 ```
 
 3. Add a feature flag with an unique key and factory for every feature:
@@ -82,7 +82,7 @@ featureManager.fetchFlags()
 5. Provide an instance of `FeatureManager` using your favourite DI framework, or you can use the `FeatureToggle` singleton:
 
 ```kotlin
-implementation("com.qiwi.featuretoggle:featuretoggle-feature-manager-singleton:0.1.0")
+implementation("com.qiwi.featuretoggle:featuretoggle-feature-manager-singleton:0.1.1")
 ```
 ```kotlin
 FeatureToggle.setFeatureManager(...)
@@ -158,7 +158,7 @@ implementation("com.google.firebase:firebase-analytics:${version}")
 3. Add `FirebaseDataSource`:
 
 ```kotlin
-implementation("com.qiwi.featuretoggle:featuretoggle-datasource-firebase:0.1.0")
+implementation("com.qiwi.featuretoggle:featuretoggle-datasource-firebase:0.1.1")
 ```
 ```kotlin
 FeatureManager.Builder(context)
@@ -182,7 +182,7 @@ implementation("com.huawei.hms:hianalytics:${version}")
 3. Add `AgConnectDataSource`:
 
 ```kotlin
-implementation("com.qiwi.featuretoggle:featuretoggle-datasource-agconnect:0.1.0")
+implementation("com.qiwi.featuretoggle:featuretoggle-datasource-agconnect:0.1.1")
 ```
 ```kotlin
 FeatureManager.Builder(context)
@@ -213,7 +213,7 @@ JSON response must be in the following format:
 Usage:
 
 ```kotlin
-implementation("com.qiwi.featuretoggle:featuretoggle-datasource-remote:0.1.0")
+implementation("com.qiwi.featuretoggle:featuretoggle-datasource-remote:0.1.1")
 ```
 ```kotlin
 FeatureManager.Builder(context)
@@ -228,7 +228,7 @@ Default `RemoteDataSource` priority value is `3`.
 If you need to update feature flags manually (for debug purposes), use `DebugDataSource`:
 
 ```kotlin
-implementation("com.qiwi.featuretoggle:featuretoggle-datasource-debug:0.1.0")
+implementation("com.qiwi.featuretoggle:featuretoggle-datasource-debug:0.1.1")
 ```
 ```kotlin
 val debugDataSource = DebugDataSource()
@@ -274,7 +274,7 @@ If you need to use `FeatureManager` in unit tests, use `FakeFeatureManager`. It 
 Usage example:
 
 ```kotlin
-testImplementation("com.qiwi.featuretoggle:featuretoggle-feature-manager-test:0.1.0")
+testImplementation("com.qiwi.featuretoggle:featuretoggle-feature-manager-test:0.1.1")
 ```
 ```kotlin
 val fakeFeatureManager = FakeFeatureManager.create(FeatureFlagRegistryGenerated(), FeatureFactoryRegistryGenerated())
