@@ -25,6 +25,8 @@ import app.cash.turbine.test
 import com.qiwi.featuretoggle.converter.JacksonFeatureFlagConverter
 import com.qiwi.featuretoggle.test.flag.BOOLEAN_FEATURE_KEY
 import com.qiwi.featuretoggle.test.flag.BooleanFeatureFlag
+import com.qiwi.featuretoggle.test.flag.COMPLEX_BOOLEAN_FEATURE_KEY
+import com.qiwi.featuretoggle.test.flag.ComplexBooleanFeatureFlag
 import com.qiwi.featuretoggle.test.logger.TestLogger
 import com.qiwi.featuretoggle.test.registry.TestFlagRegistry
 import com.qiwi.featuretoggle.test.util.TestResources
@@ -57,6 +59,14 @@ class DebugDataSourceTest {
             }), awaitItem())
             dataSource.updateSimpleFeatureFlag(BOOLEAN_FEATURE_KEY, true)
             assertEquals(mapOf(BOOLEAN_FEATURE_KEY to BooleanFeatureFlag().apply {
+                isEnabled = true
+            }), awaitItem())
+            dataSource.updateSimpleFeatureFlag(COMPLEX_BOOLEAN_FEATURE_KEY, false)
+            assertEquals(mapOf(COMPLEX_BOOLEAN_FEATURE_KEY to ComplexBooleanFeatureFlag().apply {
+                isEnabled = false
+            }), awaitItem())
+            dataSource.updateSimpleFeatureFlag(COMPLEX_BOOLEAN_FEATURE_KEY, true)
+            assertEquals(mapOf(COMPLEX_BOOLEAN_FEATURE_KEY to ComplexBooleanFeatureFlag().apply {
                 isEnabled = true
             }), awaitItem())
         }

@@ -19,23 +19,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.qiwi.featuretoggle.test.registry
+package com.qiwi.featuretoggle.test.flag
 
-import com.qiwi.featuretoggle.registry.FeatureFlagRegistry
-import com.qiwi.featuretoggle.test.flag.*
+import com.qiwi.featuretoggle.annotation.FeatureFlag
 
-class TestFlagRegistry(
-    var flagsMap: Map<String, Class<*>> = mapOf(
-        BOOLEAN_FEATURE_KEY to BooleanFeatureFlag::class.java,
-        COMPLEX_BOOLEAN_FEATURE_KEY to ComplexBooleanFeatureFlag::class.java,
-        STRING_FEATURE_KEY to StringFeatureFlag::class.java,
-        DOUBLE_FEATURE_KEY to DoubleFeatureFlag::class.java,
-        COMPLEX_FEATURE_KEY to ComplexFeatureFlag::class.java
-    )
-) : FeatureFlagRegistry {
+@FeatureFlag(COMPLEX_BOOLEAN_FEATURE_KEY)
+class ComplexBooleanFeatureFlag: BooleanFeatureFlag()
 
-    override fun getFeatureFlagsMap(): Map<String, Class<*>> = flagsMap
-
-    override fun getFeatureKeysMap(): Map<Class<*>, String> =
-        flagsMap.entries.associateBy({ it.value }) { it.key }
-}
+const val COMPLEX_BOOLEAN_FEATURE_KEY = "boolean_feature_complex"

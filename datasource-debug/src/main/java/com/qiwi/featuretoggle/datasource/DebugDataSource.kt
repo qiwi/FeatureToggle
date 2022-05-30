@@ -90,7 +90,10 @@ class DebugDataSource(private val isEnabled: Boolean = true,
         registry: FeatureFlagRegistry
     ): Map<String, Any> {
         val flagClass = registry.getFeatureFlagsMap()[key]
-        return if (flagClass != null && flagClass.superclass == SimpleFeatureFlag::class.java) {
+        val hasSimpleFeatureFlagAsSuperclass = flagClass?.superclasses
+            ?.any { it == SimpleFeatureFlag::class.java }
+            ?: false
+        return if (flagClass != null && hasSimpleFeatureFlagAsSuperclass) {
             val featureFlag = flagClass.constructors.first().newInstance() as SimpleFeatureFlag
             featureFlag.isEnabled = isEnabled
             mapOf(key to featureFlag)
@@ -159,4 +162,15 @@ class DebugDataSource(private val isEnabled: Boolean = true,
         data class UpdateSimpleFlag(val key: String, val isEnabled: Boolean): FeatureFlagsUpdateEvent()
         data class UpdateFromJsonString(val content: String): FeatureFlagsUpdateEvent()
     }
+
+    private val Class<*>.superclasses: List<Class<*>>
+        get() {
+            val classesList = mutableListOf<Class<*>>()
+            var currentSuperclass = superclass
+            while (currentSuperclass != null) {
+                classesList.add(currentSuperclass)
+                currentSuperclass = currentSuperclass.superclass
+            }
+            return classesList
+        }
 }
