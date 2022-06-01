@@ -36,8 +36,6 @@ import java.io.InputStream
 class JacksonFeatureFlagConverter(
     private val objectMapper: ObjectMapper = jacksonObjectMapper().apply {
         configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, true)
-        configure(DeserializationFeature.FAIL_ON_NULL_CREATOR_PROPERTIES, true)
     }
 ) : FeatureFlagConverter {
 
