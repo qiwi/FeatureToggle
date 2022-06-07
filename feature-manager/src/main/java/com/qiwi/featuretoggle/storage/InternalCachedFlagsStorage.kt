@@ -57,7 +57,7 @@ internal class InternalCachedFlagsStorage(
                 converter.convertFeatureFlag(
                     entry.key as String,
                     entry.value as Any,
-                    javaClass.simpleName,
+                    KEY,
                     registry,
                     logger
                 )
@@ -79,5 +79,7 @@ internal class InternalCachedFlagsStorage(
 
     companion object {
         const val DEFAULT_FILE_NAME = "flags.json"
+
+        const val KEY = "InternalCachedFlagsStorage"
     }
 }
