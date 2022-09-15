@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -33,10 +34,15 @@ dependencies {
     implementation(project(":feature-manager-singleton"))
     implementation(project(":converter-jackson"))
     implementation(project(":datasource-remote"))
-    kapt(project(":compiler"))
+    ksp(project(":compiler"))
     implementation(Dependencies.androidxCore)
     implementation(Dependencies.androidxAppcompat)
     implementation(Dependencies.androidxLifecycleRuntime)
     implementation(Dependencies.googleMaterial)
 }
 
+kotlin {
+    sourceSets.all {
+        kotlin.srcDir("build/generated/ksp/$name/kotlin")
+    }
+}

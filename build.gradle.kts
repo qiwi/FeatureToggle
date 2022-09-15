@@ -7,6 +7,7 @@ buildscript {
         classpath(Dependencies.androidPlugin)
         classpath(Dependencies.kotlinPlugin)
         classpath(Dependencies.dokkaPlugin)
+        classpath(Dependencies.kspPlugin)
     }
 }
 

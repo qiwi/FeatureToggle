@@ -26,7 +26,10 @@ object Versions {
     const val targetSdk = 30
 
     const val kotlin = "1.5.30"
+    const val kotlinSymbolProcessingApi = "1.5.30-1.0.0"
     const val androidTools = "7.0.2"
+
+    const val kspPlugin = "1.5.30-1.0.0"
 
     const val coroutines = "1.5.2"
 
@@ -57,6 +60,7 @@ object Dependencies {
     const val kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val androidPlugin = "com.android.tools.build:gradle:${Versions.androidTools}"
     const val dokkaPlugin = "org.jetbrains.dokka:dokka-gradle-plugin:${Versions.kotlin}"
+    const val kspPlugin = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:${Versions.kspPlugin}"
 
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
 
@@ -76,6 +80,9 @@ object Dependencies {
     const val agConnectRemoteConfig = "com.huawei.agconnect:agconnect-remoteconfig:${Versions.agConnectRemoteConfig}"
 
     const val kotlinpoet = "com.squareup:kotlinpoet:${Versions.kotlinpoet}"
+    const val kotlinpoetKsp = "com.squareup:kotlinpoet-ksp:${Versions.kotlinpoet}"
+
+    const val kotlinSymbolProcessingApi = "com.google.devtools.ksp:symbol-processing-api:${Versions.kotlinSymbolProcessingApi}"
 
     const val junit = "junit:junit:${Versions.junit}"
     const val mockito = "org.mockito:mockito-core:${Versions.mockito}"
