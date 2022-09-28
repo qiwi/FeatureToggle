@@ -29,7 +29,10 @@ The `FeatureToggle` library automatically generates registries of current applic
 
 ```kotlin
 implementation("com.qiwi.featuretoggle:featuretoggle-feature-manager:0.1.2")
+// To use kapt
 kapt("com.qiwi.featuretoggle:featuretoggle-compiler:0.1.2")
+// To use ksp
+ksp("com.qiwi.featuretoggle:featuretoggle-compiler:0.1.2")
 ```
 
 2. Add a converter that will be used to convert feature flags from Json into Kotlin objects. Two converters are available:

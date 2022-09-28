@@ -23,6 +23,7 @@ package com.qiwi.featuretoggle.compiler
 
 import com.qiwi.featuretoggle.annotation.Factory
 import com.qiwi.featuretoggle.annotation.FeatureFlag
+import com.qiwi.featuretoggle.compiler.generate.createFeatureFactoryRegistryFileSpec
 import com.qiwi.featuretoggle.factory.FeatureFactory
 import com.qiwi.featuretoggle.registry.FeatureFactoryRegistry
 import com.squareup.kotlinpoet.*
@@ -38,19 +39,6 @@ import javax.lang.model.type.DeclaredType
  * Creates implementation of [FeatureFactoryRegistry] that maps feature class to its key and [FeatureFactory].
  */
 class FeatureFactoryRegistryProcessor: AbstractProcessor() {
-
-    companion object {
-
-        /**
-         * Package name where generated implementation of [FeatureFactoryRegistry] will be placed.
-         */
-        const val GENERATED_PACKAGE_NAME = "com.qiwi.featuretoggle.registry"
-
-        /**
-         * Name for generated implementation of [FeatureFactoryRegistry].
-         */
-        const val GENERATED_CLASS_NAME = "FeatureFactoryRegistryGenerated"
-    }
 
     override fun getSupportedSourceVersion(): SourceVersion = SourceVersion.latestSupported()
 
@@ -73,53 +61,10 @@ class FeatureFactoryRegistryProcessor: AbstractProcessor() {
             featureClass to Pair(featureKey, featureFactoryClass)
         }.toMap().toSortedMap()
         if(featureFactoryMap.isNotEmpty()) {
-            createFeatureFactoryRegistry(featureFactoryMap)
+            createFeatureFactoryRegistryFileSpec(featureFactoryMap)
+                .writeTo(processingEnv.filer)
         }
         return false
     }
 
-    private fun createFeatureFactoryRegistry(featureFactoryMap: Map<ClassName, Pair<String, ClassName>>) {
-        val factoryMapType = MAP.parameterizedBy(
-            Class::class.asTypeName().parameterizedBy(WildcardTypeName.producerOf(Any::class)),
-            Pair::class.asTypeName().parameterizedBy(
-                String::class.asTypeName(), Class::class.asTypeName().parameterizedBy(
-                    WildcardTypeName.producerOf(Any::class)
-                )
-            )
-        )
-        val registry = TypeSpec.classBuilder(GENERATED_CLASS_NAME)
-            .addSuperinterface(FeatureFactoryRegistry::class)
-            .addProperty(
-                PropertySpec.builder("factoryMap", factoryMapType, KModifier.PRIVATE)
-                .initializer(getFactoryMapInitializer(featureFactoryMap))
-                .build())
-            .addFunction(
-                FunSpec.builder("getFactoryMap")
-                .addModifiers(KModifier.OVERRIDE)
-                .returns(factoryMapType)
-                .addCode(
-                    CodeBlock.Builder()
-                    .addStatement("return factoryMap")
-                    .build())
-                .build())
-            .build()
-        FileSpec.builder(GENERATED_PACKAGE_NAME, GENERATED_CLASS_NAME)
-            .addType(registry)
-            .build()
-            .writeTo(processingEnv.filer)
-    }
-
-    private fun getFactoryMapInitializer(featureFactoryMap: Map<ClassName, Pair<String, ClassName>>): CodeBlock {
-        val builder = CodeBlock.Builder().addStatement("mapOf(")
-        featureFactoryMap.entries.forEachIndexed { index, entry ->
-            val featureClassName = entry.key
-            val featureKey = entry.value.first
-            val featureFactoryClassName = entry.value.second
-            val endOfStatement = if(index == featureFactoryMap.size-1) "" else ","
-            builder.addStatement("%T::class.java to Pair(%S, %T::class.java)$endOfStatement", featureClassName, featureKey, featureFactoryClassName)
-        }
-        return builder
-            .addStatement(")")
-            .build()
-    }
 }

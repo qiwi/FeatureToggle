@@ -20,6 +20,8 @@ tasks.withType<KotlinCompile> {
 dependencies {
     api(project(":core"))
     implementation(Dependencies.kotlinpoet)
+    implementation(Dependencies.kotlinpoetKsp)
+    implementation(Dependencies.kotlinSymbolProcessingApi)
 }
 
 setupJavaLibraryPublishing()
