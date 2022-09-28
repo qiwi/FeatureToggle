@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.1.3] (2022-09-28)
+- Add support for KSP ([19e09ec](https://github.com/qiwi/FeatureToggle/commit/19e09ec7cfc9c6791e2424a844e15d017d2bcd1a)).
+
 ## [0.1.2] (2022-06-07)
 - Fix InternalCachedFlagsStorage exceptions logging key when Proguard is enabled ([7244cec](https://github.com/qiwi/FeatureToggle/commit/7244cece47e7e9b9398d9fabeda9a82ef5e8c9b3)).
 - Fix fail on null creator properties in JacksonFeatureFlagConverter ([5883fea](https://github.com/qiwi/FeatureToggle/commit/5883feae4a9ea6740f129db4244c84483c8e368f)).
@@ -10,6 +13,7 @@
 ## [0.1.0] (2021-10-22)
 - Initial release.
 
+[0.1.3]: https://github.com/qiwi/FeatureToggle/releases/tag/0.1.3
 [0.1.2]: https://github.com/qiwi/FeatureToggle/releases/tag/0.1.2
 [0.1.1]: https://github.com/qiwi/FeatureToggle/releases/tag/0.1.1
 [0.1.0]: https://github.com/qiwi/FeatureToggle/releases/tag/0.1.0
